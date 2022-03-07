@@ -1,0 +1,40 @@
+{
+  "name": "instagram_app",
+  "version": "1.0.0",
+  "description": "BackendApp",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel ./src -d ./build/src",
+    "build": "npm run clean && npm run build-babel",
+    "production": "npm run build && node ./build/src/server.js",
+    "dev": "nodemon --exec babel-node ./src/server.js",
+    "eslint": "eslint src"
+  },
+  "author": "KhanhBatLuc",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.6.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/node": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "eslint": "^8.2.0",
+    "nodemon": "^2.0.15"
+  }
+}
