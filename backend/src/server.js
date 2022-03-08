@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { env } from "*/config/environment";
 import mongoose from "mongoose";
 import { api } from "*/routes";
+import { STATUS_CODE } from "./utils/contants";
 
 const cors = require("cors");
 var cookieParser = require("cookie-parser");
@@ -24,10 +25,11 @@ mongoose
 // Init server when connect db success
 const bootServer = () => {
   const app = express();
-  // parse application/x-www-form-urlencoded
+  // // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: true }));
   // parse application/json
   app.use(bodyParser.json());
+  // app.use(express.json());
 
   // block request
   app.use(
@@ -39,17 +41,17 @@ const bootServer = () => {
 
   app.use("/api/v1", api);
   //
-  //   app.use((req, res, next) => {
-  //     const error = createError.BadRequest("This page does not exits >");
-  //     next(error);
-  //     console.log(error);
-  //   });
-  //   app.use((error, req, res, next) => {
-  //     res.json({
-  //       status: error.status || 400,
-  //       message: error.message,
-  //     });
-  //   });
+  app.use((req, res, next) => {
+    const error = createError.BadRequest("This page does not exits >");
+    next(error);
+    console.log(error);
+  });
+  app.use((error, req, res, next) => {
+    res.status(STATUS_CODE.BAD_REQUEST).json({
+      status: error.status || 400,
+      message: error.message,
+    });
+  });
 
   app.listen(env.APP_PORT, env.APP_HOST, () => {
     console.log(`app running http://${env.APP_HOST}:${env.APP_PORT}/`);
